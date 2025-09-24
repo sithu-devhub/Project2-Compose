@@ -3,7 +3,7 @@ version: '3.7'   # Compose file format version
 services:
   # Docker-in-Docker service
   dind:
-    image: docker:dind
+    image: docker:dind # Image name for DinD service
     privileged: true
     container_name: dind
     networks:
