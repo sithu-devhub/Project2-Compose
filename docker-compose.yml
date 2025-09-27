@@ -35,7 +35,8 @@ services:
     volumes:
       - docker-certs-client:/certs/client:ro # Volume to mount client certificates for secure Docker access
       - jenkins-data:/var/jenkins_home       # Volume to mount Jenkins configuration and job data
-
+      - /usr/bin/docker:/usr/bin/docker   # Mounts the Docker CLI from the host into the Jenkins container so Jenkins can run docker commands
+      
 # Manage named volumes - named volumes make sure data is kept even if containers are removed
 volumes:
   docker-certs-ca:     # Volume for certificate authority files
