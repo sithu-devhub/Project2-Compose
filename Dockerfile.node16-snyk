@@ -1,0 +1,14 @@
+# Use official Node.js 16 image as the base
+FROM node:16
+
+# Set working directory
+WORKDIR /usr/src/app
+
+# Install Snyk globally (so it’s ready for security scans)
+RUN npm install -g snyk
+
+# Optional: configure npm cache to speed up installs
+ENV NPM_CONFIG_CACHE=/root/.npm
+
+# Default command (not really used in Jenkins agent context)
+CMD ["node", "--version"]

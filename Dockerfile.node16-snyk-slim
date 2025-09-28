@@ -1,0 +1,12 @@
+FROM node:16-alpine
+
+WORKDIR /usr/src/app
+
+# Install build tools + git for npm builds
+RUN apk add --no-cache python3 make g++ git curl \
+    && npm install -g snyk \
+    && npm cache clean --force
+
+ENV NPM_CONFIG_CACHE=/root/.npm
+
+CMD ["node", "--version"]
