@@ -34,7 +34,6 @@ services:
       - "50000:50000"   # Maps Jenkins agent communication port
     volumes:
       - jenkins-data:/var/jenkins_home                            # Persist Jenkins state (jobs, configs, plugins, credentials)
-      - /var/jenkins_home/workspace:/var/jenkins_home/workspace   # Share workspace path so DinD can see source code for docker builds
       - docker-certs-client:/certs/client:ro                      # Client certs
 
     command: >
