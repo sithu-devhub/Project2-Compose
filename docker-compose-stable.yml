@@ -16,7 +16,6 @@ services:
       - docker-certs-ca:/certs/ca         # Volume for certificate authority (CA) files
       - docker-certs-client:/certs/client # Volume for client certificates used by Jenkins
       - docker-cache:/var/lib/docker      # Volume to persist Docker image layers and cache
-      - jenkins-data:/var/jenkins_home    # Volume to mount configuration and job data
 
   # Jenkins service - service that runs Jenkins, the CI/CD automation server
   jenkins:
@@ -34,8 +33,9 @@ services:
       - "8080:8080"     # Maps Jenkins UI to port 8080 on the host
       - "50000:50000"   # Maps Jenkins agent communication port
     volumes:
-      - docker-certs-client:/certs/client:ro # Volume to mount client certificates for secure Docker access
-      - jenkins-data:/var/jenkins_home       # Volume to mount Jenkins configuration and job data
+      - jenkins-data:/var/jenkins_home                            # Persist Jenkins state (jobs, configs, plugins, credentials)
+      - docker-certs-client:/certs/client:ro                      # Client certs
+
     command: >
       bash -c "apt-get update && apt-get install -y docker.io &&
                /usr/bin/tini -- /usr/local/bin/jenkins.sh"      
