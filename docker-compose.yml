@@ -40,8 +40,9 @@ services:
       - ./jenkins-casc.yaml:/var/jenkins_home/casc_configs/jenkins.yaml:ro  # Mount the local JCasC YAML file into the container so Jenkins applies it on startup
 
     command: >
-      bash -c "apt-get update && apt-get install -y docker.io &&
-               /usr/bin/tini -- /usr/local/bin/jenkins.sh"      
+      bash -c "apt-get update &&
+               apt-get install -y docker.io &&
+               exec /usr/local/bin/jenkins.sh"
                
 # Manage named volumes - named volumes make sure data is kept even if containers are removed
 volumes:
