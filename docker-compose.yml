@@ -16,7 +16,8 @@ services:
       - docker-certs-ca:/certs/ca         # Volume for certificate authority (CA) files
       - docker-certs-client:/certs/client # Volume for client certificates used by Jenkins
       - docker-cache:/var/lib/docker      # Volume to persist Docker image layers and cache
-
+      - /tmp:/tmp
+      
   # Jenkins service - service that runs Jenkins, the CI/CD automation server
   jenkins:
     image: jenkins/jenkins:lts-jdk11 # Jenkins image bundled with JDK 11
@@ -38,6 +39,7 @@ services:
       - jenkins-data:/var/jenkins_home                            # Persist Jenkins state (jobs, configs, plugins, credentials)
       - docker-certs-client:/certs/client:ro                      # Client certs
       - ./jenkins-casc.yaml:/var/jenkins_home/casc_configs/jenkins.yaml:ro  # Mount the local JCasC YAML file into the container so Jenkins applies it on startup
+      - /tmp:/tmp
 
     command: >
       bash -c "apt-get update &&
